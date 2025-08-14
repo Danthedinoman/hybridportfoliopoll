@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hybrid Portfolio Poll</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Chart.js for the bar chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Hybrid Portfolio Poll</h1>
+      <p class="sub">Help us understand how people prefer to view portfolios: physical, digital, or hybrid.</p>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Submit your response</h2>
+
+        <div id="votedNotice" class="notice hidden">
+          You’ve already submitted on this device. Turn on <b>Kiosk Mode</b> if you’re collecting multiple responses on one computer.
+        </div>
+
+        <form id="pollForm" class="form">
+          <label class="lbl">Your role</label>
+          <div class="choices two">
+            <label><input type="radio" name="role" value="student" checked> Student</label>
+            <label><input type="radio" name="role" value="teacher"> Teacher</label>
+            <label><input type="radio" name="role" value="employer"> Employer</label>
+            <label><input type="radio" name="role" value="other"> Other</label>
+          </div>
+
+          <label class="lbl">Age range</label>
+          <div class="choices two">
+            <label><input type="radio" name="age" value="<18" checked> &lt;18</label>
+            <label><input type="radio" name="age" value="18-24"> 18–24</label>
+            <label><input type="radio" name="age" value="25-34"> 25–34</label>
+            <label><input type="radio" name="age" value="35-49"> 35–49</label>
+            <label><input type="radio" name="age" value="50+"> 50+</label>
+          </div>
+
+          <label class="lbl">Preferred format</label>
+          <div class="choices three">
+            <label><input type="radio" name="pref" value="physical"> Physical</label>
+            <label><input type="radio" name="pref" value="digital"> Digital</label>
+            <label><input type="radio" name="pref" value="hybrid" checked> Hybrid</label>
+          </div>
+
+          <label class="lbl">How useful is a hybrid portfolio?</label>
+          <div class="choices five small">
+            <label><input type="radio" name="usefulness" value="1"> 1</label>
+            <label><input type="radio" name="usefulness" value="2"> 2</label>
+            <label><input type="radio" name="usefulness" value="3" checked> 3</label>
+            <label><input type="radio" name="usefulness" value="4"> 4</label>
+            <label><input type="radio" name="usefulness" value="5"> 5</label>
+          </div>
+
+          <label class="lbl">Would you review both formats if provided?</label>
+          <div class="choices two">
+            <label><input type="radio" name="both" value="yes" checked> Yes</label>
+            <label><input type="radio" name="both" value="no"> No</label>
+          </div>
+
+          <label class="lbl">What matters most? (choose any)</label>
+          <div class="choices two">
+            <label><input type="checkbox" name="factors" value="easy" checked> Easy to navigate</label>
+            <label><input type="checkbox" name="factors" value="visual"> Looks good / visual</label>
+            <label><input type="checkbox" name="factors" value="detail" checked> Detail & evidence</label>
+            <label><input type="checkbox" name="factors" value="speed"> Quick to skim</label>
+            <label><input type="checkbox" name="factors" value="access"> Accessible anywhere</label>
+          </div>
+
+          <label class="lbl">Any comments?</label>
+          <textarea name="comments" rows="3" placeholder="E.g., I like hybrid because websites can include videos…"></textarea>
+
+          <div class="row">
+            <button type="submit" class="btn">Submit response</button>
+            <button type="button" id="kioskBtn" class="btn ghost">Kiosk Mode: OFF</button>
+          </div>
+
+          <div class="row">
+            <button type="button" id="csvBtn" class="btn ghost">Download CSV</button>
+            <button type="button" id="shareBtn" class="btn ghost">Share</button>
+          </div>
+
+          <p class="fine">Privacy: Responses are stored only in this device’s browser (localStorage). To collect to the cloud, connect this page to a backend (e.g., a Google Form).</p>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Live results</h2>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="k">Total responses</div>
+            <div class="v" id="total">0</div>
+          </div>
+          <div class="stat">
+            <div class="k">Avg usefulness (1–5)</div>
+            <div class="v" id="avg">0</div>
+          </div>
+          <div class="stat">
+            <div class="k">Would review both (Yes %)</div>
+            <div class="v" id="yesRate">0%</div>
+          </div>
+          <div class="stat">
+            <div class="k">Top preference</div>
+            <div class="v" id="topPref">—</div>
+          </div>
+        </div>
+
+        <div class="chartWrap">
+          <canvas id="barChart" width="400" height="240"></canvas>
+        </div>
+
+        <details class="raw">
+          <summary>See raw responses</summary>
+          <div id="rawList" class="rawList"></div>
+        </details>
+
+        <div class="row">
+          <button type="button" id="clearBtn" class="btn danger">Clear local data</button>
+          <button type="button" id="allowBtn" class="btn ghost">Allow re‑vote on this device</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="fine center">
+      Built by Mitch for a school task • Hybrid portfolio = physical + digital
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
